@@ -7,6 +7,10 @@ Questo esempio usa le routine del repository per il caso:
 - distanza tra i bordi interni **50 um** (quindi `2g = 50 um`, `g = 25 um`)
 - substrato GaAs di spessore **1 um**
 
+## Immagine della struttura
+
+![Sezione CPS su GaAs](structure.svg)
+
 ## Permittività relativa del GaAs
 
 Valore usato: **epsr = 12.9** (300 K, dielectric constant static).
