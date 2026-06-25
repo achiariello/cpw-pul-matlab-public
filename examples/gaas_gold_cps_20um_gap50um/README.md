@@ -56,6 +56,17 @@ Questo script genera:
 - `gaas_gold_cps_diff_2port_100GHz_10THz_0p8mm.s2p`
 - `gaas_gold_cps_diff_2port_100GHz_10THz_0p8mm_plot.png`
 
+Per la variante `0.8 mm` nel range `50e9 .. 100e9`:
+
+```matlab
+example_export_s2p_50_100GHz_0p8mm
+```
+
+Questo script genera:
+
+- `gaas_gold_cps_diff_2port_50GHz_100GHz_0p8mm.s2p`
+- `gaas_gold_cps_diff_2port_50GHz_100GHz_0p8mm_plot.png`
+
 Per un secondo esempio in banda più stretta (`50e9 .. 100e9`):
 
 ```matlab
@@ -78,6 +89,17 @@ Questo script genera:
 - `gaas_gold_cps_diff_2port_100kHz_1GHz.s2p`
 - `gaas_gold_cps_diff_2port_100kHz_1GHz_plot.png`
 
+Per la variante `0.8 mm` nel range `100e3 .. 1e9`:
+
+```matlab
+example_export_s2p_100kHz_1GHz_0p8mm
+```
+
+Questo script genera:
+
+- `gaas_gold_cps_diff_2port_100kHz_1GHz_0p8mm.s2p`
+- `gaas_gold_cps_diff_2port_100kHz_1GHz_0p8mm_plot.png`
+
 Per convertire un file Touchstone single-ended 4 porte in differenziale 2 porte:
 
 ```matlab
@@ -99,7 +121,9 @@ con:
 ![S-parameters differenziali 2-port (100 GHz .. 10 THz)](gaas_gold_cps_diff_2port_100GHz_10THz_plot.png)
 ![S-parameters differenziali 2-port (100 GHz .. 10 THz, 0.8 mm)](gaas_gold_cps_diff_2port_100GHz_10THz_0p8mm_plot.png)
 ![S-parameters differenziali 2-port (50 GHz .. 100 GHz)](gaas_gold_cps_diff_2port_50GHz_100GHz_plot.png)
+![S-parameters differenziali 2-port (50 GHz .. 100 GHz, 0.8 mm)](gaas_gold_cps_diff_2port_50GHz_100GHz_0p8mm_plot.png)
 ![S-parameters differenziali 2-port (100 kHz .. 1 GHz)](gaas_gold_cps_diff_2port_100kHz_1GHz_plot.png)
+![S-parameters differenziali 2-port (100 kHz .. 1 GHz, 0.8 mm)](gaas_gold_cps_diff_2port_100kHz_1GHz_0p8mm_plot.png)
 
 ```matlab
 Lpul = Z0^2 * Cpul
