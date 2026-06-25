@@ -1,7 +1,7 @@
 function out = cps_rpul_matrix_skin(f, s, t, sigma, mu_r)
 % CPS_RPUL_MATRIX_SKIN Per-unit-length resistance matrix with skin effect.
 % Inputs (SI):
-%   f      frequency [Hz]
+%   f      frequency [Hz] (scalar or vector)
 %   s      strip width [m]
 %   t      strip thickness [m]
 %   sigma  conductor conductivity [S/m]
@@ -26,7 +26,7 @@ function out = cps_rpul_matrix_skin(f, s, t, sigma, mu_r)
         mu_r = 1;
     end
 
-    validateattributes(f,     {'numeric'}, {'real','positive','scalar'}, mfilename, 'f', 1);
+    validateattributes(f,     {'numeric'}, {'real','positive','vector'}, mfilename, 'f', 1);
     validateattributes(s,     {'numeric'}, {'real','positive','scalar'}, mfilename, 's', 2);
     validateattributes(t,     {'numeric'}, {'real','positive','scalar'}, mfilename, 't', 3);
     validateattributes(sigma, {'numeric'}, {'real','positive','scalar'}, mfilename, 'sigma', 4);
@@ -36,16 +36,20 @@ function out = cps_rpul_matrix_skin(f, s, t, sigma, mu_r)
     omega = 2 * pi * f;
     mu = mu0 * mu_r;
 
-    delta = sqrt(2 / (omega * mu * sigma)); % [m]
-    Rs = 1 / (sigma * delta);               % [Ohm]
+    f = f(:).';
+    delta = sqrt(2 ./ (omega * mu * sigma)); % [m]
+    Rs = 1 ./ (sigma .* delta);              % [Ohm]
 
     P_eff = 2 * (s + t);                    % [m]
-    R_strip = Rs / P_eff;                   % [Ohm/m]
-
-    Rpul = [R_strip, 0; 0, R_strip];
+    R_strip = Rs / P_eff;                    % [Ohm/m]
+    nFreq = numel(f);
+    Rpul = zeros(2, 2, nFreq);
+    Rpul(1, 1, :) = R_strip;
+    Rpul(2, 2, :) = R_strip;
     Rdiff = 2 * R_strip;
 
     out = struct( ...
+        'freq_Hz', f, ...
         'delta_m', delta, ...
         'delta_um', delta * 1e6, ...
         'Rs_Ohm', Rs, ...

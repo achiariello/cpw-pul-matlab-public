@@ -34,6 +34,23 @@ Lo script calcola:
 - `Lpul` tramite:
 - `Rpul` (matrice 2x2 di resistenza per unità di lunghezza) considerando skin depth
 
+Per esportare gli S-parameters 4 porte in Touchstone standard:
+
+```matlab
+example_export_s4p
+```
+
+Questo script genera:
+
+- `gaas_gold_cps_4port.s4p`
+
+con:
+
+- `Cpul` e `Lpul` costanti in frequenza
+- `Gpul = 0`
+- `Rpul(f)` valutata tra `fmin` e `fmax` in `Nfreq` punti
+- normalizzazione `Z0 = 50 Ohm` su tutte le 4 porte
+
 ```matlab
 Lpul = Z0^2 * Cpul
 ```
