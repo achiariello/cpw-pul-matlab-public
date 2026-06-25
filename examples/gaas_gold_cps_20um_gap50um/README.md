@@ -67,6 +67,17 @@ Questo script genera:
 - `gaas_gold_cps_diff_2port_50GHz_100GHz_0p8mm.s2p`
 - `gaas_gold_cps_diff_2port_50GHz_100GHz_0p8mm_plot.png`
 
+Per un esempio nel range intermedio (`1e9 .. 50e9`) con lunghezza 1 mm:
+
+```matlab
+example_export_s2p_1GHz_50GHz
+```
+
+Questo script genera:
+
+- `gaas_gold_cps_diff_2port_1GHz_50GHz.s2p`
+- `gaas_gold_cps_diff_2port_1GHz_50GHz_plot.png`
+
 Per un secondo esempio in banda più stretta (`50e9 .. 100e9`):
 
 ```matlab
