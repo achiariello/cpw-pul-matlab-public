@@ -56,6 +56,14 @@ Questo script genera:
 - `gaas_gold_cps_diff_2port_50GHz_100GHz.s2p`
 - `gaas_gold_cps_diff_2port_50GHz_100GHz_plot.png`
 
+Per convertire un file Touchstone single-ended 4 porte in differenziale 2 porte:
+
+```matlab
+convert_s4p_to_diff_s2p('input.s4p','output_diff.s2p',[1 3],[2 4]);
+```
+
+La funzione controlla che il file input abbia Z0 di normalizzazione coerente (default 50 Ohm).
+
 con:
 
 - `Cpul` e `Lpul` costanti in frequenza (scalari differenziali)
