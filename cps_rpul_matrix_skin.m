@@ -1,5 +1,5 @@
 function out = cps_rpul_matrix_skin(f, s, t, sigma, mu_r)
-% CPS_RPUL_MATRIX_SKIN Per-unit-length resistance matrix with skin effect.
+% CPS_RPUL_MATRIX_SKIN Differential per-unit-length resistance with skin effect.
 % Inputs (SI):
 %   f      frequency [Hz] (scalar or vector)
 %   s      strip width [m]
@@ -7,19 +7,15 @@ function out = cps_rpul_matrix_skin(f, s, t, sigma, mu_r)
 %   sigma  conductor conductivity [S/m]
 %   mu_r   relative magnetic permeability (optional, default = 1)
 %
-% Model assumptions:
+% Differential-mode assumptions:
 % 1) Strong skin effect (current confined within skin depth delta).
-% 2) Identical strips, same material, balanced CPS.
+% 2) Two identical strips carry equal and opposite currents.
 % 3) Effective conducting perimeter per strip P_eff = 2*(s+t).
-% 4) No cross-conductor ohmic coupling in the matrix (off-diagonal = 0).
 %
 % Useful relations:
 %   delta = sqrt(2/(omega*mu*sigma))
 %   R_s   = 1/(sigma*delta) = sqrt(pi*f*mu/sigma)
 %   R_strip = R_s / P_eff
-%   R_pul matrix = [R_strip, 0; 0, R_strip]
-%
-% Differential-mode series resistance:
 %   Rdiff_pul = 2*R_strip
 
     if nargin < 5
@@ -42,10 +38,6 @@ function out = cps_rpul_matrix_skin(f, s, t, sigma, mu_r)
 
     P_eff = 2 * (s + t);                    % [m]
     R_strip = Rs / P_eff;                    % [Ohm/m]
-    nFreq = numel(f);
-    Rpul = zeros(2, 2, nFreq);
-    Rpul(1, 1, :) = R_strip;
-    Rpul(2, 2, :) = R_strip;
     Rdiff = 2 * R_strip;
 
     out = struct( ...
@@ -55,6 +47,6 @@ function out = cps_rpul_matrix_skin(f, s, t, sigma, mu_r)
         'Rs_Ohm', Rs, ...
         'P_eff_m', P_eff, ...
         'R_strip_Ohm_per_m', R_strip, ...
-        'Rpul_Ohm_per_m', Rpul, ...
+        'Rpul_Ohm_per_m', Rdiff, ...
         'Rdiff_Ohm_per_m', Rdiff);
 end

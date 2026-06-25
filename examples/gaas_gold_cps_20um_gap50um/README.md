@@ -31,43 +31,43 @@ Lo script calcola:
 
 - `Cpul` (capacità per unità di lunghezza)
 - `Z0` (impedenza caratteristica)
-- `Rpul` (matrice 2x2 di resistenza per unità di lunghezza) considerando skin depth
+- `Rpul` (resistenza differenziale per unità di lunghezza, scalare) considerando skin depth
 - `Lpul` tramite:
 
-Per esportare gli S-parameters 4 porte in Touchstone standard:
+Per esportare gli S-parameters differenziali 2 porte in Touchstone standard:
 
 ```matlab
-example_export_s4p
+example_export_s2p
 ```
 
 Questo script genera (configurato per `fmin=100e9`, `fmax=10e12`, `Nfreq=10000`):
 
-- `gaas_gold_cps_4port_100GHz_10THz.s4p`
-- `gaas_gold_cps_4port_100GHz_10THz_plot.png`
+- `gaas_gold_cps_diff_2port_100GHz_10THz.s2p`
+- `gaas_gold_cps_diff_2port_100GHz_10THz_plot.png`
 
 Per un secondo esempio in banda più stretta (`50e9 .. 100e9`):
 
 ```matlab
-example_export_s4p_50_100GHz
+example_export_s2p_50_100GHz
 ```
 
 Questo script genera:
 
-- `gaas_gold_cps_4port_50GHz_100GHz.s4p`
-- `gaas_gold_cps_4port_50GHz_100GHz_plot.png`
+- `gaas_gold_cps_diff_2port_50GHz_100GHz.s2p`
+- `gaas_gold_cps_diff_2port_50GHz_100GHz_plot.png`
 
 con:
 
-- `Cpul` e `Lpul` costanti in frequenza (matrici accoppiate 2x2)
+- `Cpul` e `Lpul` costanti in frequenza (scalari differenziali)
 - `Gpul = 0`
 - `Rpul(f)` valutata tra `fmin` e `fmax` in `Nfreq` punti
 - punti di frequenza in `logspace` (distribuiti per decade)
-- normalizzazione `Z0 = 50 Ohm` su tutte le 4 porte
+- normalizzazione `Z0 = 50 Ohm`
 
 ### Plot esportato
 
-![S-parameters 4-port (100 GHz .. 10 THz)](gaas_gold_cps_4port_100GHz_10THz_plot.png)
-![S-parameters 4-port (50 GHz .. 100 GHz)](gaas_gold_cps_4port_50GHz_100GHz_plot.png)
+![S-parameters differenziali 2-port (100 GHz .. 10 THz)](gaas_gold_cps_diff_2port_100GHz_10THz_plot.png)
+![S-parameters differenziali 2-port (50 GHz .. 100 GHz)](gaas_gold_cps_diff_2port_50GHz_100GHz_plot.png)
 
 ```matlab
 Lpul = Z0^2 * Cpul
@@ -79,7 +79,7 @@ Per la parte resistiva HF viene usato:
 delta = sqrt(2/(omega*mu*sigma))
 Rs = 1/(sigma*delta)
 R_strip = Rs/(2*(s+t))
-Rpul = [R_strip 0; 0 R_strip]
+Rpul = 2*R_strip
 ```
 
 ## Risultato numerico atteso
@@ -91,5 +91,5 @@ Con i parametri sopra:
 - `Lpul ≈ 1.048626e-06 H/m` (`1048.625523 nH/m`)
 - a `f = 10 GHz`, `sigma_Au = 4.10e7 S/m`:
   - `delta ≈ 0.786802 um`
-  - `Rpul ≈ [738.8224, 0; 0, 738.8224] Ohm/m`
+  - `Rpul ≈ 1477.6448 Ohm/m`
   - `Rdiff_pul ≈ 1477.6448 Ohm/m`

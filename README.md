@@ -4,8 +4,8 @@ Questa cartella contiene routine MATLAB per linea CPS su substrato singolo:
 
 - `cps_single_layer_params.m`: calcolo di capacità per unità di lunghezza `C` e impedenza caratteristica `Z` usando le equazioni (1), (5), (6), (7), (8).
 - `verify_table1.m`: verifica numerica con i valori riportati in **Table 1** dell'articolo.
-- `cps_rpul_matrix_skin.m`: calcolo della matrice `Rpul` (2x2) per skin effect a una data frequenza.
-- `cps_export_s4p_txlineRLCGLine.m`: costruzione/esportazione di parametri `S(4x4)` in Touchstone `.s4p` (Z0=50 Ohm) con modello accoppiato basato su matrici RLGC complete (2x2).
+- `cps_rpul_matrix_skin.m`: calcolo di `Rpul` differenziale (scalare/vettore) per skin effect a una data frequenza.
+- `cps_export_s2p_txlineRLCGLine.m`: costruzione/esportazione di parametri differenziali `S(2x2)` in Touchstone `.s2p` (Z0=50 Ohm) con `txlineRLCGLine`.
 
 ## Riferimento bibliografico
 

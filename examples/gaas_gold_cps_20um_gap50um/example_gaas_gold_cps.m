@@ -13,7 +13,7 @@
 %
 % Computed quantities:
 %   Cpul [F/m], Z0 [Ohm], Lpul [H/m] with Lpul = Z0^2 * Cpul
-%   Rpul matrix [Ohm/m] using skin depth model for gold
+%   Rpul [Ohm/m] using skin depth model for gold (differential mode)
 
 clear; clc;
 
@@ -50,6 +50,5 @@ fprintf('Z0   = %.6f Ohm\n', Z0);
 fprintf('Lpul = %.6e H/m  (%.6f nH/m)\n', Lpul, Lpul * 1e9);
 fprintf('f    = %.3f GHz\n', f / 1e9);
 fprintf('delta(Au) = %.6f um\n', rac.delta_um);
-fprintf('Rpul matrix [Ohm/m] =\n');
-disp(Rpul);
+fprintf('Rpul (diff) = %.6f Ohm/m\n', Rpul);
 fprintf('Rdiff_pul = %.6f Ohm/m\n', rac.Rdiff_Ohm_per_m);
