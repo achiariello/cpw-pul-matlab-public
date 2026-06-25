@@ -8,14 +8,16 @@ function out = cps_rpul_matrix_skin(f, s, t, sigma, mu_r)
 %   mu_r   relative magnetic permeability (optional, default = 1)
 %
 % Differential-mode assumptions:
-% 1) Strong skin effect (current confined within skin depth delta).
-% 2) Two identical strips carry equal and opposite currents.
-% 3) Effective conducting perimeter per strip P_eff = 2*(s+t).
+% 1) Two identical strips carry equal and opposite currents.
+% 2) Current penetrates from conductor boundaries with skin depth delta.
+% 3) If delta is large enough to fully penetrate the conductor cross-section,
+%    the strip is modeled with uniform current over the full area s*t.
 %
 % Useful relations:
 %   delta = sqrt(2/(omega*mu*sigma))
 %   R_s   = 1/(sigma*delta) = sqrt(pi*f*mu/sigma)
-%   R_strip = R_s / P_eff
+%   Aeff_strip = s*t - max(s-2*delta,0)*max(t-2*delta,0)
+%   R_strip = 1/(sigma*Aeff_strip)
 %   Rdiff_pul = 2*R_strip
 
     if nargin < 5
@@ -34,10 +36,14 @@ function out = cps_rpul_matrix_skin(f, s, t, sigma, mu_r)
 
     f = f(:).';
     delta = sqrt(2 ./ (omega * mu * sigma)); % [m]
-    Rs = 1 ./ (sigma .* delta);              % [Ohm]
+    Rs = 1 ./ (sigma .* delta);               % [Ohm]
 
-    P_eff = 2 * (s + t);                    % [m]
-    R_strip = Rs / P_eff;                    % [Ohm/m]
+    fullArea = s * t;                         % [m^2]
+    innerW = max(s - 2 .* delta, 0);
+    innerT = max(t - 2 .* delta, 0);
+    Aeff = fullArea - (innerW .* innerT);     % [m^2]
+    Aeff = min(max(Aeff, eps(fullArea)), fullArea); % numerical safety
+    R_strip = 1 ./ (sigma .* Aeff);           % [Ohm/m]
     Rdiff = 2 * R_strip;
 
     out = struct( ...
@@ -45,7 +51,9 @@ function out = cps_rpul_matrix_skin(f, s, t, sigma, mu_r)
         'delta_m', delta, ...
         'delta_um', delta * 1e6, ...
         'Rs_Ohm', Rs, ...
-        'P_eff_m', P_eff, ...
+        'Aeff_m2', Aeff, ...
+        'A_full_m2', fullArea, ...
+        'is_fully_penetrated', (delta >= min(s, t) / 2), ...
         'R_strip_Ohm_per_m', R_strip, ...
         'Rpul_Ohm_per_m', Rdiff, ...
         'Rdiff_Ohm_per_m', Rdiff);

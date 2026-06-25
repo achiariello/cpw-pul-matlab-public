@@ -78,9 +78,12 @@ Per la parte resistiva HF viene usato:
 ```matlab
 delta = sqrt(2/(omega*mu*sigma))
 Rs = 1/(sigma*delta)
-R_strip = Rs/(2*(s+t))
+Ae = s*t - max(s-2*delta,0)*max(t-2*delta,0)
+R_strip = 1/(sigma*Ae)
 Rpul = 2*R_strip
 ```
+
+Se `delta >= min(s,t)/2`, il conduttore e' completamente penetrato e il modello usa automaticamente l'area piena `Ae = s*t`.
 
 ## Risultato numerico atteso
 
@@ -90,6 +93,6 @@ Con i parametri sopra:
 - `Z0 ≈ 314.152540 Ohm`
 - `Lpul ≈ 1.048626e-06 H/m` (`1048.625523 nH/m`)
 - a `f = 10 GHz`, `sigma_Au = 4.10e7 S/m`:
-  - `delta ≈ 0.786802 um`
-  - `Rpul ≈ 1477.6448 Ohm/m`
-  - `Rdiff_pul ≈ 1477.6448 Ohm/m`
+  - `delta ≈ 0.786010 um`
+  - `Rpul ≈ 2439.0244 Ohm/m`
+  - `Rdiff_pul ≈ 2439.0244 Ohm/m`
