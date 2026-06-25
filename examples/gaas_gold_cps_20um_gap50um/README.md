@@ -58,7 +58,7 @@ Questo script genera:
 
 con:
 
-- `Cpul` e `Lpul` costanti in frequenza
+- `Cpul` e `Lpul` costanti in frequenza (matrici accoppiate 2x2)
 - `Gpul = 0`
 - `Rpul(f)` valutata tra `fmin` e `fmax` in `Nfreq` punti
 - punti di frequenza in `logspace` (distribuiti per decade)
