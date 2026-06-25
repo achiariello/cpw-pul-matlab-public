@@ -21,7 +21,7 @@ sigma_au = 4.10e7; % [S/m]
 
 % Frequency sweep
 fmin = 100e9;
-fmax = 100e12;
+fmax = 10e12;
 Nfreq = 10000;
 freq = logspace(log10(fmin), log10(fmax), Nfreq);
 
@@ -41,7 +41,7 @@ rac = cps_rpul_matrix_skin(freq, s, t_au, sigma_au);
 Rpul = rac.Rpul_Ohm_per_m;
 
 % Export Touchstone
-outfile = fullfile(this_dir, 'gaas_gold_cps_4port_100GHz_100THz.s4p');
+outfile = fullfile(this_dir, 'gaas_gold_cps_4port_100GHz_10THz.s4p');
 out = cps_export_s4p_txlineRLCGLine(outfile, fmin, fmax, Nfreq, lineLength, Cpul, Lpul, Rpul);
 
 % Plot
@@ -62,7 +62,7 @@ ylabel('Magnitude [dB]');
 title('CPS 4-port S-parameters (Z0 = 50 Ohm)');
 legend('|S11|', '|S13|', '|S24|', '|S33|', 'Location', 'best');
 
-plotfile = fullfile(this_dir, 'gaas_gold_cps_4port_100GHz_100THz_plot.png');
+plotfile = fullfile(this_dir, 'gaas_gold_cps_4port_100GHz_10THz_plot.png');
 exportgraphics(fig, plotfile, 'Resolution', 180);
 close(fig);
 
