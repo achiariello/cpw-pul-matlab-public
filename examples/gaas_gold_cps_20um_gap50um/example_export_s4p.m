@@ -20,9 +20,9 @@ eps_r_gaas = 12.9;
 sigma_au = 4.10e7; % [S/m]
 
 % Frequency sweep
-fmin = 1e9;
-fmax = 40e9;
-Nfreq = 201;
+fmin = 100e9;
+fmax = 100e12;
+Nfreq = 1000;
 freq = linspace(fmin, fmax, Nfreq);
 
 % Make root routines visible
@@ -41,9 +41,32 @@ rac = cps_rpul_matrix_skin(freq, s, t_au, sigma_au);
 Rpul = rac.Rpul_Ohm_per_m;
 
 % Export Touchstone
-outfile = fullfile(this_dir, 'gaas_gold_cps_4port.s4p');
+outfile = fullfile(this_dir, 'gaas_gold_cps_4port_100GHz_100THz.s4p');
 out = cps_export_s4p_txlineRLCGLine(outfile, fmin, fmax, Nfreq, lineLength, Cpul, Lpul, Rpul);
 
+% Plot
+S = out.S4;
+S11_dB = 20 * log10(abs(squeeze(S(1, 1, :))));
+S13_dB = 20 * log10(abs(squeeze(S(1, 3, :))));
+S24_dB = 20 * log10(abs(squeeze(S(2, 4, :))));
+S33_dB = 20 * log10(abs(squeeze(S(3, 3, :))));
+
+fig = figure('Visible', 'off');
+semilogx(freq, S11_dB, 'LineWidth', 1.3); hold on;
+semilogx(freq, S13_dB, 'LineWidth', 1.3);
+semilogx(freq, S24_dB, 'LineWidth', 1.3);
+semilogx(freq, S33_dB, 'LineWidth', 1.3);
+grid on;
+xlabel('Frequency [Hz]');
+ylabel('Magnitude [dB]');
+title('CPS 4-port S-parameters (Z0 = 50 Ohm)');
+legend('|S11|', '|S13|', '|S24|', '|S33|', 'Location', 'best');
+
+plotfile = fullfile(this_dir, 'gaas_gold_cps_4port_100GHz_100THz_plot.png');
+exportgraphics(fig, plotfile, 'Resolution', 180);
+close(fig);
+
 fprintf('Touchstone file written:\n%s\n', out.filename);
-fprintf('f-range: %.3f .. %.3f GHz, N=%d\n', fmin/1e9, fmax/1e9, Nfreq);
+fprintf('Plot written:\n%s\n', plotfile);
+fprintf('f-range: %.3f GHz .. %.3f THz, N=%d\n', fmin/1e9, fmax/1e12, Nfreq);
 fprintf('Z0 normalization: 50 Ohm on all 4 ports\n');

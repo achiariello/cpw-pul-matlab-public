@@ -31,8 +31,8 @@ Lo script calcola:
 
 - `Cpul` (capacità per unità di lunghezza)
 - `Z0` (impedenza caratteristica)
-- `Lpul` tramite:
 - `Rpul` (matrice 2x2 di resistenza per unità di lunghezza) considerando skin depth
+- `Lpul` tramite:
 
 Per esportare gli S-parameters 4 porte in Touchstone standard:
 
@@ -40,9 +40,10 @@ Per esportare gli S-parameters 4 porte in Touchstone standard:
 example_export_s4p
 ```
 
-Questo script genera:
+Questo script genera (configurato per `fmin=100e9`, `fmax=100e12`, `Nfreq=1000`):
 
-- `gaas_gold_cps_4port.s4p`
+- `gaas_gold_cps_4port_100GHz_100THz.s4p`
+- `gaas_gold_cps_4port_100GHz_100THz_plot.png`
 
 con:
 
@@ -50,6 +51,10 @@ con:
 - `Gpul = 0`
 - `Rpul(f)` valutata tra `fmin` e `fmax` in `Nfreq` punti
 - normalizzazione `Z0 = 50 Ohm` su tutte le 4 porte
+
+### Plot esportato
+
+![S-parameters 4-port (100 GHz .. 100 THz)](gaas_gold_cps_4port_100GHz_100THz_plot.png)
 
 ```matlab
 Lpul = Z0^2 * Cpul
