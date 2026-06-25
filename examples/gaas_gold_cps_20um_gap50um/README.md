@@ -50,6 +50,7 @@ con:
 - `Cpul` e `Lpul` costanti in frequenza
 - `Gpul = 0`
 - `Rpul(f)` valutata tra `fmin` e `fmax` in `Nfreq` punti
+- punti di frequenza in `logspace` (distribuiti per decade)
 - normalizzazione `Z0 = 50 Ohm` su tutte le 4 porte
 
 ### Plot esportato

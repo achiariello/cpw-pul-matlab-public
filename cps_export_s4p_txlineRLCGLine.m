@@ -28,7 +28,7 @@ function out = cps_export_s4p_txlineRLCGLine(filename, fmin, fmax, Nfreq, lineLe
     validateattributes(Cpul,       {'numeric'}, {'real','positive','scalar'}, mfilename, 'Cpul', 6);
     validateattributes(Lpul,       {'numeric'}, {'real','positive','scalar'}, mfilename, 'Lpul', 7);
 
-    freq = linspace(fmin, fmax, Nfreq);
+    freq = logspace(log10(fmin), log10(fmax), Nfreq);
     [R1, R2] = parseRpul(Rpul, Nfreq);
     G = zeros(1, Nfreq);
 

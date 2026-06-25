@@ -23,7 +23,7 @@ sigma_au = 4.10e7; % [S/m]
 fmin = 100e9;
 fmax = 100e12;
 Nfreq = 10000;
-freq = linspace(fmin, fmax, Nfreq);
+freq = logspace(log10(fmin), log10(fmax), Nfreq);
 
 % Make root routines visible
 this_file = mfilename('fullpath');
