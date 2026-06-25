@@ -4,7 +4,7 @@
 %   - Cpul and Lpul constant with frequency
 %   - Gpul = 0
 %   - Rpul(f) from skin-depth model
-%   - Port reference impedance Z0 = 50 Ohm
+%   - Port reference impedance Z0 = 100 Ohm (differential)
 
 clear; clc;
 
@@ -56,7 +56,7 @@ semilogx(freq, S21_dB, 'LineWidth', 1.3);
 grid on;
 xlabel('Frequency [Hz]');
 ylabel('Magnitude [dB]');
-title('Differential CPS S-parameters (50 GHz .. 100 GHz, Z0 = 50 Ohm)');
+title('Differential CPS S-parameters (50 GHz .. 100 GHz, Z0 = 100 Ohm)');
 legend('|S11|', '|S21|', 'Location', 'best');
 
 plotfile = fullfile(this_dir, 'gaas_gold_cps_diff_2port_50GHz_100GHz_plot.png');
@@ -66,4 +66,4 @@ close(fig);
 fprintf('Touchstone file written:\n%s\n', out.filename);
 fprintf('Plot written:\n%s\n', plotfile);
 fprintf('f-range: %.3f GHz .. %.3f GHz, N=%d\n', fmin/1e9, fmax/1e9, Nfreq);
-fprintf('Z0 normalization: 50 Ohm\n');
+fprintf('Z0 normalization: 100 Ohm\n');

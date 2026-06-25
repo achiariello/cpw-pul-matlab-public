@@ -62,7 +62,7 @@ Per convertire un file Touchstone single-ended 4 porte in differenziale 2 porte:
 convert_s4p_to_diff_s2p('input.s4p','output_diff.s2p',[1 3],[2 4]);
 ```
 
-La funzione controlla che il file input abbia Z0 di normalizzazione coerente (default 50 Ohm).
+La funzione controlla che il file input abbia Z0 di normalizzazione coerente (default 50 Ohm single-ended) e scrive output differenziale con default 100 Ohm.
 
 con:
 
@@ -70,7 +70,7 @@ con:
 - `Gpul = 0`
 - `Rpul(f)` valutata tra `fmin` e `fmax` in `Nfreq` punti
 - punti di frequenza in `logspace` (distribuiti per decade)
-- normalizzazione `Z0 = 50 Ohm`
+- normalizzazione `Z0 = 100 Ohm`
 
 ### Plot esportato
 
