@@ -40,7 +40,7 @@ Per esportare gli S-parameters 4 porte in Touchstone standard:
 example_export_s4p
 ```
 
-Questo script genera (configurato per `fmin=100e9`, `fmax=100e12`, `Nfreq=1000`):
+Questo script genera (configurato per `fmin=100e9`, `fmax=100e12`, `Nfreq=10000`):
 
 - `gaas_gold_cps_4port_100GHz_100THz.s4p`
 - `gaas_gold_cps_4port_100GHz_100THz_plot.png`

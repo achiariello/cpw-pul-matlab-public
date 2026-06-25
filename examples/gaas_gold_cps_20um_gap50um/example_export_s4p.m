@@ -22,7 +22,7 @@ sigma_au = 4.10e7; % [S/m]
 % Frequency sweep
 fmin = 100e9;
 fmax = 100e12;
-Nfreq = 1000;
+Nfreq = 10000;
 freq = linspace(fmin, fmax, Nfreq);
 
 % Make root routines visible
