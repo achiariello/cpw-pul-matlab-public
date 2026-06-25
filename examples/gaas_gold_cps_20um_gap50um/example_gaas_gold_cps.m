@@ -13,6 +13,7 @@
 %
 % Computed quantities:
 %   Cpul [F/m], Z0 [Ohm], Lpul [H/m] with Lpul = Z0^2 * Cpul
+%   Rpul matrix [Ohm/m] using skin depth model for gold
 
 clear; clc;
 
@@ -25,6 +26,8 @@ h = 1e-6;
 
 % Material
 eps_r_gaas = 12.9;
+sigma_au = 4.10e7; % [S/m], bulk conductivity (approx. at room temperature)
+f = 10e9;          % [Hz]
 
 % Make root routines visible
 this_file = mfilename('fullpath');
@@ -37,9 +40,16 @@ out = cps_single_layer_params(s, g, h, eps_r_gaas);
 Cpul = out.C_F_per_m;
 Z0 = out.Z_Ohm;
 Lpul = Z0^2 * Cpul;
+rac = cps_rpul_matrix_skin(f, s, t_au, sigma_au);
+Rpul = rac.Rpul_Ohm_per_m;
 
 fprintf('Example: GaAs CPS (s=20 um, 2g=50 um, h=1 um)\n');
 fprintf('eps_r(GaAs) = %.3f\n', eps_r_gaas);
 fprintf('Cpul = %.6e F/m  (%.6f pF/m)\n', Cpul, Cpul * 1e12);
 fprintf('Z0   = %.6f Ohm\n', Z0);
 fprintf('Lpul = %.6e H/m  (%.6f nH/m)\n', Lpul, Lpul * 1e9);
+fprintf('f    = %.3f GHz\n', f / 1e9);
+fprintf('delta(Au) = %.6f um\n', rac.delta_um);
+fprintf('Rpul matrix [Ohm/m] =\n');
+disp(Rpul);
+fprintf('Rdiff_pul = %.6f Ohm/m\n', rac.Rdiff_Ohm_per_m);

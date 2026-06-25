@@ -32,9 +32,19 @@ Lo script calcola:
 - `Cpul` (capacità per unità di lunghezza)
 - `Z0` (impedenza caratteristica)
 - `Lpul` tramite:
+- `Rpul` (matrice 2x2 di resistenza per unità di lunghezza) considerando skin depth
 
 ```matlab
 Lpul = Z0^2 * Cpul
+```
+
+Per la parte resistiva HF viene usato:
+
+```matlab
+delta = sqrt(2/(omega*mu*sigma))
+Rs = 1/(sigma*delta)
+R_strip = Rs/(2*(s+t))
+Rpul = [R_strip 0; 0 R_strip]
 ```
 
 ## Risultato numerico atteso
@@ -44,3 +54,7 @@ Con i parametri sopra:
 - `Cpul ≈ 1.062525e-11 F/m` (`10.625253 pF/m`)
 - `Z0 ≈ 314.152540 Ohm`
 - `Lpul ≈ 1.048626e-06 H/m` (`1048.625523 nH/m`)
+- a `f = 10 GHz`, `sigma_Au = 4.10e7 S/m`:
+  - `delta ≈ 0.786802 um`
+  - `Rpul ≈ [738.8224, 0; 0, 738.8224] Ohm/m`
+  - `Rdiff_pul ≈ 1477.6448 Ohm/m`
